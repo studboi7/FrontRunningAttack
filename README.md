@@ -89,6 +89,4 @@ npx hardhat run scripts/checkAccounts.js --network localhost
 
 - Node.js & npm
 - Hardhat
-- A basic understanding of smart contracts and Ethereum
-
 ---
