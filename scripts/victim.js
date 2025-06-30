@@ -19,11 +19,17 @@ async function main() {
   await logBalances("Before Victim Submission", { victim });
 
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+
   rl.question("Enter your quiz answer (as victim): ", async (answer) => {
-    fs.writeFileSync("mempool.json", JSON.stringify({ answer }));
+    const gasPriceGwei = "1";
+    const gasPrice = ethers.parseUnits(gasPriceGwei, "gwei");
+
+    // 💾 Save answer and gas price
+    fs.writeFileSync("mempool.json", JSON.stringify({ answer, gasPrice: gasPriceGwei }));
+
     try {
       const tx = await quiz.connect(victim).submitAnswer(answer, {
-        gasPrice: ethers.parseUnits("1", "gwei")
+        gasPrice
       });
       console.log("🟡 Victim TX sent:", tx.hash);
       await tx.wait();
@@ -31,6 +37,7 @@ async function main() {
     } catch (err) {
       console.error("❌ Victim TX failed:", err);
     }
+
     await logBalances("After Victim Submission", { victim });
     rl.close();
   });
