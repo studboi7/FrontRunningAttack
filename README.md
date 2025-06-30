@@ -61,7 +61,7 @@ npx hardhat run scripts/check-winner.js --network localhost
 
 ---
 
-### 6. Check Account Balances
+### 6. Check Account Address
 
 ```bash
 npx hardhat run scripts/checkAccounts.js --network localhost
